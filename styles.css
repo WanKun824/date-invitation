@@ -1,8 +1,9 @@
 :root {
-    --primary-color: #FF69B4;
-    --background-color: #1a1a1a;
-    --text-color: #ffffff;
-    --card-bg: rgba(255, 255, 255, 0.1);
+    --primary-gradient: linear-gradient(135deg, #FF69B4, #9370DB);
+    --envelope-color: #FFF;
+    --background-color: #FFEEFF;
+    --text-color: #333;
+    --card-bg: rgba(255, 255, 255, 0.95);
 }
 
 * {
@@ -15,77 +16,125 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--background-color);
+    background: var(--primary-gradient);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: var(--text-color);
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    min-height: 100vh;
 }
 
 .container {
     width: 100%;
-    height: 100%;
-    position: fixed;
-    overflow: hidden;
-}
-
-/* Video Section */
-#video-section {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: var(--background-color);
-}
-
-.video-container {
-    width: 100%;
-    height: 100%;
+    min-height: 100vh;
     position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Envelope Styles */
+#envelope-section {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: var(--background-color);
+    z-index: 10;
+    transition: transform 0.8s ease-in-out;
 }
 
-#intro-video {
+.envelope-container {
+    width: 300px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+}
+
+.envelope {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background: var(--envelope-color);
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.envelope-flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--envelope-color);
+    clip-path: polygon(0 0, 50% 50%, 100% 0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+    z-index: 2;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope-content {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    left: 5%;
+    top: 5%;
+    background: white;
+    transform: translateY(0);
+    transition: transform 0.6s ease;
+    z-index: 1;
+}
+
+.envelope.open .envelope-content {
+    transform: translateY(-120%);
+}
+
+.letter {
+    padding: 20px;
+    text-align: center;
+}
+
+.letter-title {
+    font-size: 1.5rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
 }
 
 /* Summary Section */
 #summary-section {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    min-height: 100vh;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
     padding: 20px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    display: none;
 }
 
 #summary-section.active {
     opacity: 1;
+    display: block;
 }
 
 .summary-container {
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem;
-    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 .summary-title {
     font-size: 2.5rem;
+    text-align: center;
     margin-bottom: 2rem;
-    background: linear-gradient(45deg, #FF69B4, #FFB6C1);
+    background: var(--primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: titleFadeIn 1.5s ease-out;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: titleFadeIn 1s ease-out forwards;
 }
 
 .stats-grid {
@@ -99,73 +148,16 @@ body {
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
-    animation: cardSlideUp 0.8s ease-out forwards;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transform: translateY(20px);
-    transition: transform 0.3s ease;
+    animation: cardSlideUp 0.8s ease-out forwards;
 }
 
-.stat-card:hover {
-    transform: translateY(-5px);
-}
-
-.stat-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.stat-number {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin: 0.5rem 0;
-}
-
-.stat-label {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-}
-
-.stat-detail {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.invitation {
-    margin-top: 2rem;
-    animation: fadeIn 1s ease-out 2s forwards;
-    opacity: 0;
-}
-
-.invitation h2 {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.4;
-}
-
-#accept-btn {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    background: linear-gradient(45deg, #FF69B4, #FFB6C1);
-    border: none;
-    border-radius: 25px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 80%;
-    max-width: 300px;
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
-}
-
-#accept-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
-}
-
-.hidden {
-    display: none;
+@media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* Animations */
@@ -191,49 +183,37 @@ body {
     }
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Card Animation Delays */
-.stat-card:nth-child(1) {
-    animation-delay: 0.3s;
-}
-
-.stat-card:nth-child(2) {
-    animation-delay: 0.6s;
-}
-
-.stat-card:nth-child(3) {
-    animation-delay: 0.9s;
-}
-
 /* Mobile Optimization */
-@media (min-width: 768px) {
-    .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
 @media (max-width: 480px) {
+    .envelope-container {
+        width: 280px;
+        height: 180px;
+    }
+    
     .summary-title {
         font-size: 2rem;
     }
     
-    .stat-number {
-        font-size: 1.6rem;
+    .stat-card {
+        padding: 1rem;
     }
-    
-    .stat-label {
-        font-size: 1rem;
-    }
-    
-    .invitation h2 {
-        font-size: 1.2rem;
-    }
+}
+
+.hidden {
+    display: none;
+}
+
+#accept-btn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 80%;
+    max-width: 300px;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
 }
