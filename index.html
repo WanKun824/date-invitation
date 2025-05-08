@@ -1,40 +1,50 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Date Invitation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Special Invitation</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💝</text></svg>">
 </head>
 <body>
     <div class="container">
-        <!-- Sunflowers Section -->
-        <section id="sunflowers-section" class="active">
-            <div class="sunflower-container">
-                <!-- Sunflowers will be added dynamically via JavaScript -->
+        <!-- Video Section -->
+        <section id="video-section" class="active">
+            <div class="video-container">
+                <video id="intro-video" playsinline muted>
+                    <source src="your-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </section>
 
-        <!-- Music Summary Section -->
-        <section id="music-summary" class="hidden">
+        <!-- Summary Section -->
+        <section id="summary-section" class="hidden">
             <div class="summary-container">
-                <h1 class="summary-title">Our Musical Journey</h1>
-                <div class="music-stats">
+                <h1 class="summary-title">Our Story</h1>
+                <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">365</div>
-                        <div class="stat-label">Days Together</div>
+                        <div class="stat-icon">🕒</div>
+                        <div class="stat-number">May 8th</div>
+                        <div class="stat-label">Time</div>
+                        <div class="stat-detail">8:00 PM</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">128</div>
-                        <div class="stat-label">Shared Songs</div>
+                        <div class="stat-icon">📍</div>
+                        <div class="stat-number">Central Park</div>
+                        <div class="stat-label">Location</div>
+                        <div class="stat-detail">Main Entrance</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">42</div>
+                        <div class="stat-icon">✨</div>
+                        <div class="stat-number">Together</div>
                         <div class="stat-label">Special Moments</div>
+                        <div class="stat-detail">To Be Created</div>
                     </div>
                 </div>
                 <div class="invitation">
-                    <h2>Would you like to create more memories together?</h2>
+                    <h2>Would you like to create more beautiful memories together?</h2>
                     <button id="accept-btn">Yes, I'd Love To ♥</button>
                 </div>
             </div>
