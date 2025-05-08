@@ -1,7 +1,8 @@
 :root {
-    --primary-color: #FFD700;
+    --primary-color: #FF69B4;
     --background-color: #1a1a1a;
     --text-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -30,37 +31,31 @@ body {
     overflow: hidden;
 }
 
-/* Sunflowers Section */
-#sunflowers-section {
+/* Video Section */
+#video-section {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: var(--background-color);
 }
 
-.sunflower-container {
+.video-container {
     width: 100%;
     height: 100%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.sunflower {
-    position: absolute;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    width: 80px; /* Smaller size for mobile */
-    height: 80px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+#intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.sunflower.visible {
-    opacity: 1;
-}
-
-/* Music Summary Section */
-#music-summary {
+/* Summary Section */
+#summary-section {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -70,9 +65,10 @@ body {
     opacity: 0;
     transition: opacity 1s ease-in-out;
     padding: 20px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
 }
 
-#music-summary.active {
+#summary-section.active {
     opacity: 1;
 }
 
@@ -84,40 +80,57 @@ body {
 }
 
 .summary-title {
-    font-size: 2rem; /* Smaller for mobile */
-    margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #FF69B4, #FFB6C1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: titleFadeIn 1.5s ease-out;
 }
 
-.music-stats {
-    display: flex;
-    flex-direction: column; /* Stack cards vertically on mobile */
-    gap: 1rem;
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
     margin: 2rem 0;
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1rem;
-    border-radius: 15px;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 20px;
     backdrop-filter: blur(10px);
     animation: cardSlideUp 0.8s ease-out forwards;
     opacity: 0;
-    margin: 0.5rem 0;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .stat-number {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: var(--primary-color);
+    margin: 0.5rem 0;
 }
 
 .stat-label {
-    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.stat-detail {
     font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .invitation {
@@ -127,32 +140,35 @@ body {
 }
 
 .invitation h2 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
 }
 
 #accept-btn {
-    margin-top: 1rem;
     padding: 1rem 2rem;
     font-size: 1.2rem;
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+    background: linear-gradient(45deg, #FF69B4, #FFB6C1);
     border: none;
     border-radius: 25px;
     color: white;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     width: 80%;
     max-width: 300px;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
 }
 
 #accept-btn:active {
     transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
 }
 
 .hidden {
     display: none;
 }
 
+/* Animations */
 @keyframes titleFadeIn {
     from {
         opacity: 0;
@@ -184,7 +200,7 @@ body {
     }
 }
 
-/* Mobile-specific animations */
+/* Card Animation Delays */
 .stat-card:nth-child(1) {
     animation-delay: 0.3s;
 }
@@ -197,17 +213,27 @@ body {
     animation-delay: 0.9s;
 }
 
-/* Media Queries for different screen sizes */
+/* Mobile Optimization */
+@media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 480px) {
     .summary-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
     
     .stat-number {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     
     .stat-label {
-        font-size: 0.9rem;
+        font-size: 1rem;
+    }
+    
+    .invitation h2 {
+        font-size: 1.2rem;
     }
 }
