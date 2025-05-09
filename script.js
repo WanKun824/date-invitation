@@ -75,8 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function showAcceptanceMessage() {
-        alert('💝 Thank you! Looking forward to our special date! 💝');
+        const confirmed = window.confirm('💝 Thank you! Looking forward to our special date! 💝');
+        if (confirmed) {
+            // 替换 your-email@example.com 为您想要接收邮件的地址
+            const subject = encodeURIComponent("Date Invitation Accepted! 💑");
+            const body = encodeURIComponent("我同意和你约会！\n\n接受时间：" + new Date().toLocaleString());
+            window.location.href = `mailto:master.van1995@gmail.com?subject=${subject}&body=${body}`;
+        }
     }
+
+    
 
     // Prevent default touch behavior on mobile
     // 只在信封部分阻止滑动
