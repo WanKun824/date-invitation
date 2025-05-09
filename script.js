@@ -79,9 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Prevent default touch behavior on mobile
-    document.addEventListener('touchmove', (e) => {
+    // 只在信封部分阻止滑动
+    envelopeSection.addEventListener('touchmove', (e) => {
         if (isEnvelopeOpened) {
             e.preventDefault();
         }
     }, { passive: false });
+
 });
